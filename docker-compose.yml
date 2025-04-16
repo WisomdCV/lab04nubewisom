@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # Servicio de la aplicación Node.js
+  app:
+    build: .
+    container_name: api-app
+    restart: always
+    ports:
+      - "9000:9000"
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_NAME=api_db
+      - DB_PORT=3306
+      - PORT=9000
+    depends_on:
+      - mysql
+    networks:
+      - api-network
+    command: >
+      sh -c "node scripts/init-db.js && 
+             node scripts/seed.js && 
+             node app.js"
+
+  # Servicio de MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=api_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - api-network
+
+# Redes
+networks:
+  api-network:
+    driver: bridge
+
+# Volúmenes
+volumes:
+  mysql-data:
+    driver: local 

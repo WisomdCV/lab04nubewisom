@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API REST - Clientes y Productos con MySQL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        .endpoint {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .method {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .db-info {
+            background-color: #e8f4f8;
+            border-left: 4px solid #2980b9;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .db-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .db-table th, .db-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .db-table th {
+            background-color: #f2f2f2;
+        }
+        .db-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>API REST - Clientes y Productos con MySQL</h1>
+    
+    <p>Bienvenido a la API REST para gestionar clientes y productos con conexión a base de datos MySQL.</p>
+    
+    <div class="db-info">
+        <h2>Información de la Base de Datos</h2>
+        <p>Esta aplicación utiliza MySQL como sistema de gestión de base de datos. Los datos se almacenan en las siguientes tablas:</p>
+        
+        <h3>Tabla: clientes</h3>
+        <table class="db-table">
+            <tr>
+                <th>Campo</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>INT</td>
+                <td>Identificador único del cliente (auto-incremento)</td>
+            </tr>
+            <tr>
+                <td>nombre</td>
+                <td>VARCHAR(100)</td>
+                <td>Nombre completo del cliente</td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td>VARCHAR(100)</td>
+                <td>Correo electrónico del cliente</td>
+            </tr>
+            <tr>
+                <td>telefono</td>
+                <td>VARCHAR(20)</td>
+                <td>Número de teléfono del cliente</td>
+            </tr>
+            <tr>
+                <td>direccion</td>
+                <td>TEXT</td>
+                <td>Dirección del cliente</td>
+            </tr>
+            <tr>
+                <td>fecha_registro</td>
+                <td>TIMESTAMP</td>
+                <td>Fecha y hora de registro del cliente</td>
+            </tr>
+        </table>
+        
+        <h3>Tabla: productos</h3>
+        <table class="db-table">
+            <tr>
+                <th>Campo</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>INT</td>
+                <td>Identificador único del producto (auto-incremento)</td>
+            </tr>
+            <tr>
+                <td>nombre</td>
+                <td>VARCHAR(100)</td>
+                <td>Nombre del producto</td>
+            </tr>
+            <tr>
+                <td>descripcion</td>
+                <td>TEXT</td>
+                <td>Descripción detallada del producto</td>
+            </tr>
+            <tr>
+                <td>precio</td>
+                <td>DECIMAL(10,2)</td>
+                <td>Precio del producto</td>
+            </tr>
+            <tr>
+                <td>stock</td>
+                <td>INT</td>
+                <td>Cantidad disponible en inventario</td>
+            </tr>
+            <tr>
+                <td>categoria</td>
+                <td>VARCHAR(50)</td>
+                <td>Categoría del producto</td>
+            </tr>
+            <tr>
+                <td>fecha_creacion</td>
+                <td>TIMESTAMP</td>
+                <td>Fecha y hora de creación del producto</td>
+            </tr>
+        </table>
+    </div>
+    
+    <h2>Endpoints disponibles</h2>
+    
+    <h3>Clientes</h3>
+    <div class="endpoint">
+        <p><span class="method">GET</span> <code>/clientes</code> - Obtener todos los clientes</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">GET</span> <code>/clientes/:id</code> - Obtener un cliente por ID</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">POST</span> <code>/clientes</code> - Crear un nuevo cliente</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">PUT</span> <code>/clientes/:id</code> - Actualizar un cliente</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">DELETE</span> <code>/clientes/:id</code> - Eliminar un cliente</p>
+    </div>
+    
+    <h3>Productos</h3>
+    <div class="endpoint">
+        <p><span class="method">GET</span> <code>/productos</code> - Obtener todos los productos</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">GET</span> <code>/productos/:id</code> - Obtener un producto por ID</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">POST</span> <code>/productos</code> - Crear un nuevo producto</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">PUT</span> <code>/productos/:id</code> - Actualizar un producto</p>
+    </div>
+    <div class="endpoint">
+        <p><span class="method">DELETE</span> <code>/productos/:id</code> - Eliminar un producto</p>
+    </div>
+</body>
+</html>
